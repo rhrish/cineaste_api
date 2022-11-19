@@ -1,0 +1,17 @@
+default: &default
+  adapter: mysql2
+  host: 
+  port: 
+  username: 
+  database: 
+  password: 
+
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
