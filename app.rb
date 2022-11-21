@@ -57,6 +57,16 @@ namespace '/api/v1' do
     articles.to_json(:methods => :aid, :only => [ :id, :title, :category, :location, :published_date, :md_data, :category_en, :title_en, :md_data_en])
   end
 
+  get '/search' do
+    if(params[:q] && params[:q].length >= 3) then
+      sql = "SELECT * from articles where MATCH(category, location, title, md_data, category_en, title_en, md_data_en) AGAINST (:query IN NATURAL LANGUAGE MODE);"
+      articles = Article.find_by_sql([sql, query: params[:q]])
+      articles.to_json(:methods => :aid, :only => [ :id, :title, :category, :location, :published_date, :md_data, :category_en, :title_en, :md_data_en])
+    else 
+      halt(404, { message:'Not Found'}.to_json)
+    end
+  end
+
   get '/article/:id' do
     halt(404, { message:'Not Found'}.to_json) if(params.length<=0)
     article = Article.find_by(id: params[:id])
