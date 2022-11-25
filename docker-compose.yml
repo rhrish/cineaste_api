@@ -1,0 +1,12 @@
+version: '3.2'
+services:
+  cineasteapi:
+    image: cineasteapi:latest
+    build: .
+    command: rackup
+    ports:
+      - "127.0.0.1:9292:9292"
+    env_file:
+      - './.env'
+
+

@@ -8,4 +8,4 @@ gem 'sinatra-cors'
 gem 'rack'
 gem 'rake'
 gem 'mysql2'
-
+gem 'puma'
